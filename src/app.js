@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+//connection
 var url = "mongodb://127.0.0.1:27017/students";
 mongoose.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true  });
 
@@ -30,7 +31,7 @@ const postSchema = new mongoose.Schema({
   rollno: { type: Number ,required: true },
   section: { type: String, required: true },
 });
-module.exports = mongoose.model("Post", postSchema);
+var student = mongoose.model("Post", postSchema);
 
 //routes
 app.get('/' , (req,res) =>{
