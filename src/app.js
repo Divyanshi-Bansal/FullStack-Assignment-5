@@ -16,6 +16,22 @@ db.on("error",()=>{
     console.log("Not Connected");
 })
 
+//models -- schema
+const postSchema = new mongoose.Schema({
+  author: {
+    type: String,
+    required: true,
+    maxLength: 20,
+    lowerCase: true,
+    unique: true,
+  },
+  name: { type: String },
+  course: { type: String, required: true },
+  rollno: { type: Number ,required: true },
+  section: { type: String, required: true },
+});
+module.exports = mongoose.model("Post", postSchema);
+
 //routes
 app.get('/' , (req,res) =>{
     res.send("Home");
