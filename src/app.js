@@ -19,23 +19,24 @@ db.on("error",()=>{
 
 //models -- schema
 const postSchema = new mongoose.Schema({
-  author: {
-    type: String,
-    required: true,
-    maxLength: 20,
-    lowerCase: true,
-    unique: true,
-  },
   name: { type: String },
   course: { type: String, required: true },
-  rollno: { type: Number ,required: true },
+  rollno: { type: Number ,required: true ,unique: true},
   section: { type: String, required: true },
 });
-var student = mongoose.model("Post", postSchema);
+var student = mongoose.model("student", postSchema);
 
 //routes
 app.get('/' , (req,res) =>{
-    res.send("Home");
+    try{
+        student.save().then((result)=>{
+            console.log(result);
+        })
+    }catch(err){
+        res.status(404).json({
+            message:err
+        });
+    }
 })
 app.get('/students' , (req,res) =>{
     res.send("Student's information");
